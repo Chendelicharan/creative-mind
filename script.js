@@ -2,9 +2,9 @@ const themeToggle = document.querySelector(".theme-toggle");
 const promptForm = document.querySelector(".prompt-form");
 const promptInput = document.querySelector(".prompt-input");
 const promptBtn = document.querySelector(".prompt-btn");
-const modelSelect = document.getElementById("model-slect");
+const modelSelect = document.getElementById("model-select");
 const countSelect = document.getElementById("count-select");
-const ratioSelect = document.getElementById("ratio-slect");
+const ratioSelect = document.getElementById("ratio-select");
 const gridGallery = document.querySelector(".gallery-grid");
 
 const API_KEY = "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"; 
@@ -40,30 +40,30 @@ const toggleTheme = () => {
 
 const getImageDimensions = (aspectRatio, baseSize = 512) => {
     const [width, height] = aspectRatio.split("/").map(Number); 
-    const scaleFactor =baseSize / Math.sqrt(width * height); 
+    const scaleFactor = baseSize / Math.sqrt(width * height); 
     
     let calculatedWidth = Math.round(width * scaleFactor); 
     let calculatedHeight = Math.round(height * scaleFactor); 
 
-    // Ensure dimensions are multiples of 16 (AI model 
-       calculatedWidth = Math.floor(calculatedWidth / 16) * 16;
-       calculatedHeight = Math.floor(calculatedHeight / 16) * 16;
+    // Ensure dimensions are multiples of 16 (AI model requirements)
+    calculatedWidth = Math.floor(calculatedWidth / 16) * 16;
+    calculatedHeight = Math.floor(calculatedHeight / 16) * 16;
 
-       return {width: calculatedHeight, height: calculatedHeight };
+    return { width: calculatedWidth, height: calculatedHeight };
 };
 
 
 
 const updateImageCard = (imgIndex, imgUrl) => {
-    const imgCard = document.getElementById(`img-card-${imgIndex}`)
+    const imgCard = document.getElementById(`img-card-${imgIndex}`);
     if(!imgCard) return;
 
     imgCard.classList.remove("loading");
     imgCard.innerHTML = `  <img src="${imgUrl}"  class="result-img" />
                         <div class="img-overlay">
-                            <a herf="${imgUrl}" class="img-download-btn" dowload="${Date.now()}.png">
+                            <a href="${imgUrl}" class="img-download-btn" download="${Date.now()}.png">
                                 <i class="fa-solid fa-download"></i>
-                            </button>
+                            </a>
                         </div>`;
 };
 
@@ -86,7 +86,7 @@ const generateImages = async (selectedModel, imageCount, aspectRatio, promptText
         }),
      });
 
-     if (!response.ok) throw new Error ((await responce.json())?.error);
+     if (!response.ok) throw new Error((await response.json())?.error);
 
      const result = await response.blob();
      updateImageCard(i, URL.createObjectURL( result));
