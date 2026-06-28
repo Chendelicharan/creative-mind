@@ -82,7 +82,7 @@ const generateImages = async (selectedModel, imageCount, aspectRatio, promptText
         body: JSON.stringify({
         inputs: promptText,
         parameters: { width, height },
-        options: {wait_for_model: true, user_cache: false},
+        options: {wait_for_model: true, use_cache: true},
         }),
      });
 
